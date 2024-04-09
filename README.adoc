@@ -76,10 +76,10 @@ curl --request POST 'http://localhost:8080/pets' \
 }
 ----
 
-=== Get pers
+=== Get pets
 
 Endpoint `GET /pets` returns all stored pets.
-Query param `petType [DOG, CAT]` can filter items by pet type
+Query param `petType [DOG, CAT]` can filter items by pet type.
 
 Example:
 
