@@ -29,7 +29,7 @@ class CreatePetServiceTest {
     fun `pet is created`() {
         every { createPetPort.create(ANY_PET_PROTOTYPE) } returns ANY_CREATED_PET
 
-        val createdPet = sut.createPet(ANY_PET_PROTOTYPE)
+        val createdPet = sut.create(ANY_PET_PROTOTYPE)
 
         assertThat(createdPet).isEqualTo(ANY_CREATED_PET)
         verify { createPetPort.create(ANY_PET_PROTOTYPE) }
@@ -37,7 +37,7 @@ class CreatePetServiceTest {
 
     @Test
     fun `creating invalid pet throws exception`() {
-        assertThatThrownBy { sut.createPet(ANY_INVALID_PET_PROTOTYPE) }.isInstanceOf(IllegalArgumentException::class.java)
+        assertThatThrownBy { sut.create(ANY_INVALID_PET_PROTOTYPE) }.isInstanceOf(IllegalArgumentException::class.java)
         verify { createPetPort.create(ANY_INVALID_PET_PROTOTYPE) wasNot Called }
     }
 }

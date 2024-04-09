@@ -11,7 +11,7 @@ class CreatePetService(
     private val createPetPort: CreatePetPort,
 ) : CreatePetUseCase {
 
-    override fun createPet(petPrototype: PetPrototype): Pet {
+    override fun create(petPrototype: PetPrototype): Pet {
         petPrototype.validate()
         return createPetPort.create(petPrototype)
     }

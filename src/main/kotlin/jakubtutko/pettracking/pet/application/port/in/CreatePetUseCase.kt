@@ -5,5 +5,5 @@ import jakubtutko.pettracking.pet.domain.PetPrototype
 
 interface CreatePetUseCase {
 
-    fun createPet(petPrototype: PetPrototype): Pet
+    fun create(petPrototype: PetPrototype): Pet
 }
