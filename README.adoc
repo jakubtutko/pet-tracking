@@ -10,14 +10,15 @@ Application is typical gradle Spring-boot project, so it can be run by
 
 ----
 ./gradlew bootRun
-
 ----
 
-Application should be then accessible on `http://localhost:8080`
+Application should be then accessible on `http://localhost:8080`.
 
 == API spec
 
 Application contains several REST APIs.
+
+'''
 
 === Create pet
 
@@ -76,6 +77,8 @@ curl --request POST 'http://localhost:8080/pets' \
 }
 ----
 
+'''
+
 === Get pets
 
 Endpoint `GET /pets` returns all stored pets.
@@ -84,7 +87,7 @@ Query param `petType [DOG, CAT]` can filter items by pet type.
 Example:
 
 ----
-curl --request GET 'http://localhost:8080/pets?petType=CAT' --header 'Content-Type: application/json'
+curl --request GET 'http://localhost:8080/p1ets?petType=CAT' --header 'Content-Type: application/json'
 
 {
     "pets": [
@@ -100,6 +103,8 @@ curl --request GET 'http://localhost:8080/pets?petType=CAT' --header 'Content-Ty
 }
 ----
 
+'''
+
 === Count pets
 
 Endpoint `GET /pets/counts` returns count of pets outside the power saving zone grouped by pet type and tracker type.
@@ -107,7 +112,7 @@ Endpoint `GET /pets/counts` returns count of pets outside the power saving zone 
 Example:
 
 ----
-curl --location --request GET 'http://localhost:8080/pets/count-out-of-zone' --header 'Content-Type: application/json'
+curl --request GET 'http://localhost:8080/pets/count-out-of-zone' --header 'Content-Type: application/json'
 
 {
     "dogs": {
