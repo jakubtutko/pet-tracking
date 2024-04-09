@@ -87,7 +87,7 @@ Query param `petType [DOG, CAT]` can filter items by pet type.
 Example:
 
 ----
-curl --request GET 'http://localhost:8080/p1ets?petType=CAT' --header 'Content-Type: application/json'
+curl --request GET 'http://localhost:8080/pets?petType=CAT' --header 'Content-Type: application/json'
 
 {
     "pets": [
