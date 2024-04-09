@@ -1,6 +1,6 @@
 package jakubtutko.pettracking.pet.adapter.out.persistence
 
-import jakubtutko.pettracking.pet.application.port.out.CountPetsPort
+import jakubtutko.pettracking.pet.application.port.out.CountPetsOutOfZonePort
 import jakubtutko.pettracking.pet.application.port.out.CreatePetPort
 import jakubtutko.pettracking.pet.application.port.out.GetPetsPort
 import jakubtutko.pettracking.pet.domain.Cat
@@ -17,12 +17,12 @@ import java.util.UUID
 @Component
 class InMemoryPetAdapter(
     private val storage: InMemoryPetStorage,
-) : CreatePetPort, GetPetsPort, CountPetsPort {
+) : CreatePetPort, GetPetsPort, CountPetsOutOfZonePort {
 
     override fun create(petPrototype: PetPrototype): Pet {
         val pet = petPrototype.toPet()
         storage.addPet(pet)
-        storage.increaseCount(petPrototype.type, petPrototype.trackerType)
+        if (!pet.inZone) storage.increaseCount(petPrototype.type, petPrototype.trackerType)
         return pet
     }
 
@@ -30,7 +30,7 @@ class InMemoryPetAdapter(
         petType = petFilter.type
     )
 
-    override fun countPets(): PetCount = storage.getCounts()
+    override fun countPetsOutOfZone(): PetCount = storage.getCounts()
 
     private fun PetPrototype.toPet(): Pet = when (type) {
         PetType.DOG -> toDog()

@@ -107,7 +107,7 @@ Endpoint `GET /pets/counts` returns count of pets outside the power saving zone 
 Example:
 
 ----
-curl --location --request GET 'http://localhost:8080/pets/count-not-in-zone' --header 'Content-Type: application/json'
+curl --location --request GET 'http://localhost:8080/pets/count-out-of-zone' --header 'Content-Type: application/json'
 
 {
     "dogs": {

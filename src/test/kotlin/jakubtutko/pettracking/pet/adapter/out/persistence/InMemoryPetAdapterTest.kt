@@ -106,14 +106,16 @@ class InMemoryPetAdapterTest {
     }
 
     @Test
-    fun `pets are counted`() {
-        sut.create(petPrototype(DOG, SMALL))
-        sut.create(petPrototype(DOG, MEDIUM))
-        sut.create(petPrototype(DOG, BIG))
-        sut.create(petPrototype(CAT, SMALL))
-        sut.create(petPrototype(CAT, MEDIUM))
+    fun `pets out of zone are counted`() {
+        sut.create(petPrototype(DOG, SMALL, IN_ZONE))
+        sut.create(petPrototype(DOG, SMALL, NOT_IN_ZONE))
+        sut.create(petPrototype(DOG, MEDIUM, NOT_IN_ZONE))
+        sut.create(petPrototype(DOG, BIG, NOT_IN_ZONE))
+        sut.create(petPrototype(CAT, SMALL, IN_ZONE))
+        sut.create(petPrototype(CAT, SMALL, NOT_IN_ZONE))
+        sut.create(petPrototype(CAT, MEDIUM, NOT_IN_ZONE))
 
-        val count = sut.countPets()
+        val count = sut.countPetsOutOfZone()
 
         assertSoftly { softly ->
             softly.assertThat(count.dogs[SMALL]).isEqualTo(1)
@@ -126,7 +128,7 @@ class InMemoryPetAdapterTest {
 
     @Test
     fun `no pets returns zero counts`() {
-        val count = sut.countPets()
+        val count = sut.countPetsOutOfZone()
 
         assertSoftly { softly ->
             softly.assertThat(count.dogs[SMALL]).isEqualTo(0)
@@ -137,16 +139,19 @@ class InMemoryPetAdapterTest {
         }
     }
 
-    private fun petPrototype(petType: PetType, trackerType: TrackerType) = PetPrototype(
-        type = petType,
-        trackerType = trackerType,
-        ownerId = ANY_OWNER_ID,
-        inZone = ANY_IN_ZONE,
-        lostTracker = if (petType == DOG) null else ANY_LOST_TRACKER,
-    )
+    private fun petPrototype(petType: PetType, trackerType: TrackerType, inZone: Boolean = false) =
+        PetPrototype(
+            type = petType,
+            trackerType = trackerType,
+            ownerId = ANY_OWNER_ID,
+            inZone = inZone,
+            lostTracker = if (petType == DOG) null else ANY_LOST_TRACKER,
+        )
 }
 
 private val ANY_OWNER_ID = OwnerId("ownerId")
 private val ANY_TRACKER_TYPE = SMALL
 private const val ANY_IN_ZONE = true
+private const val IN_ZONE = true
+private const val NOT_IN_ZONE = false
 private const val ANY_LOST_TRACKER = false

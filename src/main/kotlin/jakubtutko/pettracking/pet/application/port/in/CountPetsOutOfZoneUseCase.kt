@@ -2,7 +2,7 @@ package jakubtutko.pettracking.pet.application.port.`in`
 
 import jakubtutko.pettracking.pet.domain.PetCount
 
-interface CountPetsUseCase {
+interface CountPetsOutOfZoneUseCase {
 
-    fun countPets(): PetCount
+    fun countPetsOutOfZone(): PetCount
 }

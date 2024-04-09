@@ -106,38 +106,39 @@ class PetsSystemTest(
     }
 
     @Test
-    fun `pets are counted`() {
-        createPet(DOG, SMALL)
-        createPet(CAT, MEDIUM)
+    fun `pets out of zone are counted`() {
+        createPet(DOG, SMALL, IN_ZONE)
+        createPet(DOG, MEDIUM, NOT_IN_ZONE)
+        createPet(CAT, MEDIUM, IN_ZONE)
+        createPet(CAT, MEDIUM, NOT_IN_ZONE)
 
         webTestClient.get()
-            .uri { uriBuilder -> uriBuilder.path("/pets/counts").build() }
+            .uri { uriBuilder -> uriBuilder.path("/pets/count-out-of-zone").build() }
             .header(ACCEPT, APPLICATION_JSON_VALUE)
             .exchange()
             .expectStatus().isOk
             .expectBody()
-            .jsonPath("$.dogs['SMALL']").isEqualTo(1)
-            .jsonPath("$.dogs['MEDIUM']").isEqualTo(0)
+            .jsonPath("$.dogs['SMALL']").isEqualTo(0)
+            .jsonPath("$.dogs['MEDIUM']").isEqualTo(1)
             .jsonPath("$.dogs['BIG']").isEqualTo(0)
             .jsonPath("$.cats['SMALL']").isEqualTo(0)
             .jsonPath("$.cats['MEDIUM']").isEqualTo(1)
-            .jsonPath("$.cats['BIG']").isEqualTo(0) // should not be returned
     }
 
-    private fun petPrototype(petType: PetType, trackerType: TrackerType = ANY_TRACKER_TYPE) =
+    private fun petPrototype(petType: PetType, trackerType: TrackerType = ANY_TRACKER_TYPE, inZone: Boolean = false) =
         PetController.PetPrototypeResource(
             type = petType,
             trackerType = trackerType,
             ownerId = ANY_OWNER_ID,
-            inZone = ANY_IN_ZONE,
+            inZone = inZone,
             lostTracker = if (petType == DOG) null else ANY_LOST_TRACKER,
         )
 
-    private fun createPet(petType: PetType, trackerType: TrackerType = ANY_TRACKER_TYPE) {
+    private fun createPet(petType: PetType, trackerType: TrackerType = ANY_TRACKER_TYPE, inZone: Boolean = false) {
         webTestClient.post()
             .uri { uriBuilder -> uriBuilder.path("/pets").build() }
             .header(ACCEPT, APPLICATION_JSON_VALUE)
-            .bodyValue(petPrototype(petType, trackerType))
+            .bodyValue(petPrototype(petType, trackerType, inZone))
             .exchange()
             .expectStatus().isOk
             .expectBody()
@@ -146,5 +147,6 @@ class PetsSystemTest(
 
 private val ANY_TRACKER_TYPE = SMALL
 private const val ANY_OWNER_ID = "ownerId"
-private const val ANY_IN_ZONE = true
 private const val ANY_LOST_TRACKER = false
+private const val IN_ZONE = true
+private const val NOT_IN_ZONE = false

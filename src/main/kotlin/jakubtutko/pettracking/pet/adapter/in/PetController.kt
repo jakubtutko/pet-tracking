@@ -1,6 +1,6 @@
 package jakubtutko.pettracking.pet.adapter.`in`
 
-import jakubtutko.pettracking.pet.application.port.`in`.CountPetsUseCase
+import jakubtutko.pettracking.pet.application.port.`in`.CountPetsOutOfZoneUseCase
 import jakubtutko.pettracking.pet.application.port.`in`.CreatePetUseCase
 import jakubtutko.pettracking.pet.application.port.`in`.GetPetsUseCase
 import jakubtutko.pettracking.pet.domain.OwnerId
@@ -23,7 +23,7 @@ import java.util.UUID
 class PetController(
     private val createPetUseCase: CreatePetUseCase,
     private val getPetsUseCase: GetPetsUseCase,
-    private val countPetsUseCase: CountPetsUseCase,
+    private val countPetsOutOfZoneUseCase: CountPetsOutOfZoneUseCase,
 ) {
 
     @PostMapping("/pets")
@@ -42,8 +42,8 @@ class PetController(
         return ok(resource)
     }
 
-    @GetMapping("/pets/counts")
-    fun createPet(): ResponseEntity<PetCount> = ok(countPetsUseCase.countPets())
+    @GetMapping("/pets/count-out-of-zone")
+    fun createPet(): ResponseEntity<PetCount> = ok(countPetsOutOfZoneUseCase.countPetsOutOfZone())
 
     data class PetResource(
         val id: UUID,
