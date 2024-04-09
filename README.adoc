@@ -1,0 +1,123 @@
+= Pet-Tracking
+
+Application, that calculates the number of pets (dogs and cats) outside the power saving zone based on data from different types of trackers.
+There are two types of trackers for cats (small and big) and three for dogs (small, medium, big).
+The application receives data from these trackers through a REST API, store the data, and allow querying the stored data through the same API.
+
+== How to run
+
+Application is typical gradle Spring-boot project, so it can be run by
+
+----
+./gradlew bootRun
+
+----
+
+Application should be then accessible on `http://localhost:8080`
+
+== API spec
+
+Application contains several REST APIs.
+
+=== Create pet
+
+Endpoint `POST /pets` creates pet of type dog or cat, specified by `type` property.
+Created pet is returned.
+
+Request body:
+
+* `type` string(DOG, CAT)
+* `trackerType` string(SMALL, MEDIUM, BIG), CAT type supports only SMALL and MEDIUM
+* `ownerId` string
+* `inZone` boolean
+* `lostTracker` boolean, only allowed for CAT type
+
+Example of dog creation:
+
+----
+curl --request POST 'http://localhost:8080/pets' \
+--header 'Content-Type: application/json' \
+--data '{
+   "type": "DOG",
+   "trackerType": "SMALL",
+   "ownerId": "owner-id",
+   "inZone": false
+}'
+
+{
+    "id": "3eac249d-ecca-45b0-8399-79df54e1268d",
+    "type": "DOG",
+    "trackerType": "SMALL",
+    "ownerId": "owner-id",
+    "inZone": false
+}
+----
+
+Example of cat creation:
+
+----
+curl --request POST 'http://localhost:8080/pets' \
+--header 'Content-Type: application/json' \
+--data '{
+   "type": "CAT",
+   "trackerType": "SMALL",
+   "ownerId": "owner-id",
+   "inZone": false,
+   "lostTracker": true
+}'
+
+{
+    "id": "b2ba397d-e068-42f9-ad19-3733265f444a",
+    "type": "CAT",
+    "trackerType": "SMALL",
+    "ownerId": "owner-id",
+    "inZone": false,
+    "lostTracker": true
+}
+----
+
+=== Get pers
+
+Endpoint `GET /pets` returns all stored pets.
+Query param `petType [DOG, CAT]` can filter items by pet type
+
+Example:
+
+----
+curl --request GET 'http://localhost:8080/pets?petType=CAT' --header 'Content-Type: application/json'
+
+{
+    "pets": [
+        {
+            "id": "a61b2643-d9ed-416e-97fa-06b9243ddab0",
+            "type": "CAT",
+            "trackerType": "SMALL",
+            "ownerId": "owner-id",
+            "inZone": false,
+            "lostTracker": true
+        }
+    ]
+}
+----
+
+=== Count pets
+
+Endpoint `GET /pets/counts` returns count of pets outside the power saving zone grouped by pet type and tracker type.
+
+Example:
+
+----
+curl --location --request GET 'http://localhost:8080/pets/count-not-in-zone' --header 'Content-Type: application/json'
+
+{
+    "dogs": {
+        "SMALL": 2,
+        "MEDIUM": 0,
+        "BIG": 3
+    },
+    "cats": {
+        "SMALL": 2,
+        "MEDIUM": 1
+    }
+}
+----
