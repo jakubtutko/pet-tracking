@@ -1,7 +1,7 @@
-package jakubtutko.pettracking.application.service
+package jakubtutko.pettracking.pet.application.service
 
-import jakubtutko.pettracking.application.port.`in`.CreatePetUseCase
-import jakubtutko.pettracking.application.port.out.CreatePetPort
+import jakubtutko.pettracking.pet.application.port.`in`.CreatePetUseCase
+import jakubtutko.pettracking.pet.application.port.out.CreatePetPort
 import jakubtutko.pettracking.pet.domain.Pet
 import jakubtutko.pettracking.pet.domain.PetPrototype
 import org.springframework.stereotype.Service

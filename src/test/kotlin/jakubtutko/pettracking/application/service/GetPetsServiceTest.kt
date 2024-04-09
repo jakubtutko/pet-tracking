@@ -2,7 +2,8 @@ package jakubtutko.pettracking.application.service
 
 import io.mockk.every
 import io.mockk.mockk
-import jakubtutko.pettracking.application.port.out.GetPetsPort
+import jakubtutko.pettracking.pet.application.port.out.GetPetsPort
+import jakubtutko.pettracking.pet.application.service.GetPetsService
 import jakubtutko.pettracking.pet.domain.Dog
 import jakubtutko.pettracking.pet.domain.OwnerId
 import jakubtutko.pettracking.pet.domain.Pet

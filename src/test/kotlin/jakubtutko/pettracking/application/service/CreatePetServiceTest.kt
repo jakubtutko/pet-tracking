@@ -4,7 +4,8 @@ import io.mockk.Called
 import io.mockk.every
 import io.mockk.mockk
 import io.mockk.verify
-import jakubtutko.pettracking.application.port.out.CreatePetPort
+import jakubtutko.pettracking.pet.application.port.out.CreatePetPort
+import jakubtutko.pettracking.pet.application.service.CreatePetService
 import jakubtutko.pettracking.pet.domain.Dog
 import jakubtutko.pettracking.pet.domain.OwnerId
 import jakubtutko.pettracking.pet.domain.PetId

@@ -1,4 +1,4 @@
-package jakubtutko.pettracking.application.port.`in`
+package jakubtutko.pettracking.pet.application.port.`in`
 
 import jakubtutko.pettracking.pet.domain.Pet
 import jakubtutko.pettracking.pet.domain.PetFilter

@@ -2,7 +2,8 @@ package jakubtutko.pettracking.application.service
 
 import io.mockk.every
 import io.mockk.mockk
-import jakubtutko.pettracking.application.port.out.CountPetsPort
+import jakubtutko.pettracking.pet.application.port.out.CountPetsPort
+import jakubtutko.pettracking.pet.application.service.CountPetsService
 import jakubtutko.pettracking.pet.domain.PetCount
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
