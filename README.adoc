@@ -14,6 +14,12 @@ Application is typical gradle Spring-boot project, so it can be run by
 
 Application should be then accessible on `http://localhost:8080`.
 
+To run the tests:
+
+----
+./gradlew test
+----
+
 == API spec
 
 Application contains several REST APIs.

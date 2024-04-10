@@ -12,7 +12,6 @@ import jakubtutko.pettracking.pet.domain.PetId
 import jakubtutko.pettracking.pet.domain.PetPrototype
 import jakubtutko.pettracking.pet.domain.PetType.CAT
 import jakubtutko.pettracking.pet.domain.PetType.DOG
-import jakubtutko.pettracking.pet.domain.TrackerType.BIG
 import jakubtutko.pettracking.pet.domain.TrackerType.MEDIUM
 import jakubtutko.pettracking.pet.domain.TrackerType.SMALL
 import org.assertj.core.api.Assertions.assertThat
@@ -54,7 +53,7 @@ private val ANY_PET_PROTOTYPE = PetPrototype(
 
 private val ANY_INVALID_PET_PROTOTYPE = PetPrototype(
     type = CAT,
-    trackerType = BIG,
+    trackerType = MEDIUM,
     ownerId = OwnerId("ownerId"),
     inZone = true,
     lostTracker = false,

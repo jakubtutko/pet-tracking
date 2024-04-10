@@ -2,7 +2,7 @@ package jakubtutko.pettracking.pet.domain
 
 import jakubtutko.pettracking.pet.domain.PetType.CAT
 import jakubtutko.pettracking.pet.domain.PetType.DOG
-import jakubtutko.pettracking.pet.domain.TrackerType.MEDIUM
+import jakubtutko.pettracking.pet.domain.TrackerType.BIG
 import jakubtutko.pettracking.pet.domain.TrackerType.SMALL
 import java.util.UUID
 
@@ -69,6 +69,6 @@ data class PetPrototype(
 
     private fun validateCat() {
         require(lostTracker != null) { "cat requires lostTracker property" }
-        require(trackerType in listOf(SMALL, MEDIUM)) { "cat trackerType $trackerType must be in SMALL and MEDIUM" }
+        require(trackerType in listOf(SMALL, BIG)) { "cat trackerType $trackerType must be in SMALL and BIG" }
     }
 }

@@ -5,6 +5,7 @@ import jakubtutko.pettracking.pet.domain.PetType
 import jakubtutko.pettracking.pet.domain.PetType.CAT
 import jakubtutko.pettracking.pet.domain.PetType.DOG
 import jakubtutko.pettracking.pet.domain.TrackerType
+import jakubtutko.pettracking.pet.domain.TrackerType.BIG
 import jakubtutko.pettracking.pet.domain.TrackerType.MEDIUM
 import jakubtutko.pettracking.pet.domain.TrackerType.SMALL
 import org.junit.jupiter.api.BeforeEach
@@ -109,8 +110,8 @@ class PetsSystemTest(
     fun `pets out of zone are counted`() {
         createPet(DOG, SMALL, IN_ZONE)
         createPet(DOG, MEDIUM, NOT_IN_ZONE)
-        createPet(CAT, MEDIUM, IN_ZONE)
-        createPet(CAT, MEDIUM, NOT_IN_ZONE)
+        createPet(CAT, BIG, IN_ZONE)
+        createPet(CAT, BIG, NOT_IN_ZONE)
 
         webTestClient.get()
             .uri { uriBuilder -> uriBuilder.path("/pets/count-out-of-zone").build() }
@@ -122,7 +123,7 @@ class PetsSystemTest(
             .jsonPath("$.dogs['MEDIUM']").isEqualTo(1)
             .jsonPath("$.dogs['BIG']").isEqualTo(0)
             .jsonPath("$.cats['SMALL']").isEqualTo(0)
-            .jsonPath("$.cats['MEDIUM']").isEqualTo(1)
+            .jsonPath("$.cats['BIG']").isEqualTo(1)
     }
 
     private fun petPrototype(petType: PetType, trackerType: TrackerType = ANY_TRACKER_TYPE, inZone: Boolean = false) =

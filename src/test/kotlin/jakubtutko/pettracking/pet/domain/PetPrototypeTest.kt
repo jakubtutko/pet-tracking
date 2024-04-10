@@ -3,6 +3,7 @@ package jakubtutko.pettracking.pet.domain
 import jakubtutko.pettracking.pet.domain.PetType.CAT
 import jakubtutko.pettracking.pet.domain.PetType.DOG
 import jakubtutko.pettracking.pet.domain.TrackerType.BIG
+import jakubtutko.pettracking.pet.domain.TrackerType.MEDIUM
 import jakubtutko.pettracking.pet.domain.TrackerType.SMALL
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.assertThatThrownBy
@@ -44,7 +45,7 @@ class PetPrototypeTest {
     }
 
     @ParameterizedTest
-    @EnumSource(TrackerType::class, names = ["BIG"], mode = EXCLUDE)
+    @EnumSource(TrackerType::class, names = ["MEDIUM"], mode = EXCLUDE)
     fun `cat validation does not throw exception for certain tracker types`(validTrackerType: TrackerType) {
         val cat = PetPrototype(
             type = CAT,
@@ -58,10 +59,10 @@ class PetPrototypeTest {
     }
 
     @Test
-    fun `cat validation throws exception for BIG tracker type`() {
+    fun `cat validation throws exception for MEDIUM tracker type`() {
         val cat = PetPrototype(
             type = CAT,
-            trackerType = BIG,
+            trackerType = MEDIUM,
             ownerId = ANY_OWNER_ID,
             inZone = ANY_IN_ZONE,
             lostTracker = ANY_LOST_TRACKER,
@@ -69,7 +70,7 @@ class PetPrototypeTest {
 
         assertThatThrownBy { cat.validate() }
             .isInstanceOf(IllegalArgumentException::class.java)
-            .hasMessageContaining("trackerType BIG must be in SMALL and MEDIUM")
+            .hasMessageContaining("trackerType MEDIUM must be in SMALL and BIG")
     }
 
     @Test
