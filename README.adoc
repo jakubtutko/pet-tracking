@@ -128,7 +128,7 @@ curl --request GET 'http://localhost:8080/pets/count-out-of-zone' --header 'Cont
     },
     "cats": {
         "SMALL": 2,
-        "MEDIUM": 1
+        "BIG": 1
     }
 }
 ----
