@@ -34,7 +34,7 @@ Created pet is returned.
 Request body:
 
 * `type` string(DOG, CAT)
-* `trackerType` string(SMALL, MEDIUM, BIG), CAT type supports only SMALL and MEDIUM
+* `trackerType` string(SMALL, MEDIUM, BIG), CAT type supports only SMALL and BIG
 * `ownerId` string
 * `inZone` boolean
 * `lostTracker` boolean, only allowed for CAT type
